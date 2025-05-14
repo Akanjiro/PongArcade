@@ -1,5 +1,3 @@
-# PongArcade
-
 🕹️ PONG ARCADE – LE CLASSIQUE RÉINVENTÉ
 
 📝 DESCRIPTION
@@ -17,7 +15,8 @@ Mode Infini : Pas de chrono, pas de limite de score. Juste vous, l’adversaire,
 
 Premier à 5 points : Un mode rapide et brutal. Le premier à 5 l’emporte, l’autre rage-quit.
 
-Mode Chrono (60 sec) : Un minuteur, une pression maximale, et des points à gogo. Idéal pour tester vos nerfs.
+Mode Chrono (60 sec) : L’idée est là : un minuteur, une pression maximale, et des points à gogo… mais pour être honnête, ce mode ne fonctionne pas encore.
+👉 Si vous aimez les challenges et le code, c’est votre moment de briller : corrigez le mode Chrono et contribuez ! 💡
 
 ⚡ BOOSTS INTELLIGENTS
 
@@ -87,3 +86,5 @@ Fonctionne sur tous les navigateurs modernes
 
 Pong Arcade, c’est plus qu’un simple remake : c’est un hommage vitaminé au pionnier du jeu vidéo.
 Parfait pour les nostalgiques, les compétiteurs, ou les pauses café qui dégénèrent, ce jeu vous garantit des heures de fun — et peut-être une légère dépendance. Vous êtes prévenu.
+
+Ah, et si vous réussissez à réparer le mode Chrono, vous aurez notre respect éternel (et peut-être une étoile sur ce repo 🌟).
