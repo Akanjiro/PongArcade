@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong Arcade</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>PONG ARCADE</h1>
+            <button id="settings-button" class="icon-button">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
+        
+        <div id="game-settings" class="settings-panel">
+            <h2>PARAMÈTRES DE JEU</h2>
+            <div class="settings-grid">
+                <div class="setting-group">
+                    <h3>Mode de jeu</h3>
+                    <select id="game-mode-select">
+                        <option value="infinite">Mode Infini</option>
+                        <option value="score5">Premier à 5 Points</option>
+                        <option value="timed">Mode Chrono (60s)</option>
+                    </select>
+                </div>
+                
+                <div class="setting-group">
+                    <h3>Obstacles</h3>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="obstacles-toggle" class="toggle-input">
+                        <label for="obstacles-toggle" class="toggle-label"></label>
+                    </div>
+                </div>
+                
+                <div class="setting-group">
+                    <h3>Multiballes</h3>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="multiballs-toggle" class="toggle-input">
+                        <label for="multiballs-toggle" class="toggle-label"></label>
+                    </div>
+                </div>
+                
+                <div class="setting-group">
+                    <h3>Raquette Joueur 1</h3>
+                    <select id="paddle1-type">
+                        <option value="normal">Standard</option>
+                        <option value="fast">Rapide (plus petite)</option>
+                        <option value="large">Large (plus lente)</option>
+                    </select>
+                </div>
+                
+                <div class="setting-group">
+                    <h3>Raquette Joueur 2</h3>
+                    <select id="paddle2-type">
+                        <option value="normal">Standard</option>
+                        <option value="fast">Rapide (plus petite)</option>
+                        <option value="large">Large (plus lente)</option>
+                    </select>
+                </div>
+            </div>
+            <button id="close-settings" class="btn">Fermer</button>
+        </div>
+        
+        <div class="score-board">
+            <div class="player player1">
+                <input type="text" id="player1-name" placeholder="JOUEUR 1" maxlength="10">
+                <div class="score-box">
+                    <p id="score-player1">0</p>
+                </div>
+            </div>
+            <div class="game-info">
+                <div id="timer-display" class="timer-display">
+                    <i class="fas fa-clock"></i> <span id="timer">60</span>
+                </div>
+                <button id="mode-display" class="mode-display">
+                    <i class="fas fa-gamepad"></i> <span id="current-mode">Mode Infini</span>
+                </button>
+            </div>
+            <div class="player player2">
+                <input type="text" id="player2-name" placeholder="JOUEUR 2" maxlength="10">
+                <div class="score-box">
+                    <p id="score-player2">0</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-area">
+            <div id="paddle1" class="paddle"></div>
+            <div id="ball" class="ball ball-main">
+                <div class="ball-glow"></div>
+            </div>
+            <!-- Les balles supplémentaires seront ajoutées dynamiquement -->
+            <div id="paddle2" class="paddle"></div>
+            <div id="center-line"></div>
+            <div id="obstacles-container">
+                <!-- Les obstacles seront ajoutés dynamiquement -->
+            </div>
+            <div id="boost-indicator">
+                <div class="boost-level" id="boost-level-1">1</div>
+                <div class="boost-level" id="boost-level-2">2</div>
+                <div class="boost-level" id="boost-level-3">3</div>
+            </div>
+            <div id="game-over" class="game-over">
+                <div class="game-over-content">
+                    <h2>PARTIE TERMINÉE</h2>
+                    <p id="winner-message"></p>
+                    <div id="final-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Score final :</span>
+                            <span id="final-score">0 - 0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Temps écoulé :</span>
+                            <span id="final-time">00:00</span>
+                        </div>
+                    </div>
+                    <button id="restart-button">
+                        <i class="fas fa-redo"></i> REJOUER
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <button id="start-button">
+            <i class="fas fa-play"></i> COMMENCER LA PARTIE
+        </button>
+        
+        <div class="instructions">
+            <h3><i class="fas fa-info-circle"></i> INSTRUCTIONS</h3>
+            <div class="controls">
+                <div class="control-group">
+                    <h4>JOUEUR 1</h4>
+                    <p><span class="key">W</span> Monter</p>
+                    <p><span class="key">S</span> Descendre</p>
+                </div>
+                <div class="control-group">
+                    <h4>JOUEUR 2</h4>
+                    <p><span class="key">↑</span> Monter</p>
+                    <p><span class="key">↓</span> Descendre</p>
+                </div>
+            </div>
+            <div class="tip">
+                <h4><i class="fas fa-bolt"></i> SYSTÈME DE BOOST</h4>
+                <p>Frappez la balle avec le <strong>centre</strong> de votre raquette pour activer le système de boost!</p>
+                <p><strong>Niveau 1 :</strong> Première frappe au centre = vitesse augmentée</p>
+                <p><strong>Niveau 2 :</strong> Deuxième frappe consécutive au centre = vitesse accrue</p>
+                <p><strong>Niveau 3 :</strong> Troisième frappe consécutive au centre = vitesse maximale!</p>
+                <p><em>Attention : L'enchaînement est annulé si un joueur frappe ailleurs qu'au centre ou si un point est marqué.</em></p>
+            </div>
+            <div class="game-modes">
+                <h4><i class="fas fa-gamepad"></i> MODES DE JEU</h4>
+                <ul>
+                    <li><strong>Mode Infini:</strong> Jouez sans limite de score</li>
+                    <li><strong>Premier à 5 points:</strong> La partie se termine quand un joueur atteint 5 points</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
